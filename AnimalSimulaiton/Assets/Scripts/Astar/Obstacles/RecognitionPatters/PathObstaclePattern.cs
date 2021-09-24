@@ -1,6 +1,4 @@
-﻿using UnityEngine;
-
-namespace Simulation.Pathfinding
+﻿namespace Simulation.Pathfinding
 {
     internal sealed class PathObstaclePattern : ObstaclePattern
     {

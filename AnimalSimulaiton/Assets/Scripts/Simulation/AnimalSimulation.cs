@@ -147,12 +147,16 @@ namespace Simulation
             var fruit = SpawnFruitRandom(fruitPrefab, animal.Position);
             var animalFruitHandler = new AnimalFruitHandler(animal, fruit, _simulationGrid, _animalSpeed);
 
-            await UniTask.Run(() =>
+            var firstRemoval = UniTask.Run(() =>
             {
                 freeSpace.Remove(animal.Position);
+            });
+            var secondRemoval = UniTask.Run(() =>
+            {
                 freeSpace.Remove(fruit.Position);
             });
-            await UniTask.SwitchToMainThread();
+
+            await UniTask.WhenAll(firstRemoval, secondRemoval);
 
             return animalFruitHandler;
         }
